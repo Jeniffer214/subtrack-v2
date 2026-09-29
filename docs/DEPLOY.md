@@ -1,7 +1,7 @@
 # 部署方案：访谈用演示站点
 
 > 目标：让 10 位受访者（多数在中国大陆）在访谈中能稳定打开 MVP，并且站点不被公开检索。
-> 状态：代码侧已就绪（密码门、noindex、限流、Docker 镜像定义）；**服务器、域名需要你购买**。
+> 状态：代码侧已就绪（密码门、noindex、限流、Docker 与托管平台配置）。**已选方向：零预算**，推荐 B1（Netlify 免费版 + 自定义域名），见"零预算方案对比"。
 
 ## 1. 平台选择
 
@@ -12,7 +12,7 @@
 | C. 新加坡/东京服务器 + Docker | 可用，但晚高峰延迟和丢包较香港明显 | 不需要 | 能 | 约 40–60 元/月 + 域名 | 中 |
 | D. 大陆服务器 | 最好 | **需要**，通常要数周 | 不能 | 低 | 高（备案周期） |
 
-**推荐 A**，理由：
+**有预算时推荐 A**，理由：
 - 访谈的核心是测"透明影响分"能否提升信任（访谈提纲 H1、任务二），这部分不依赖 AI；AI 解读在未配置 Key 时使用规则模板，受访者依然能完成任务三。
 - 访谈时画面卡顿会直接污染测试结果，大陆访问的稳定性比 AI 解读更重要。
 
@@ -22,6 +22,33 @@
 - Anthropic 只向支持地区提供 API，**中国大陆和香港不在其中**，服务器必须部署在支持地区。
 - 自 2025 年 9 月起，Anthropic 不向 **中国实体持股超过 50%** 的公司提供服务，即使公司注册在海外。若你的公司属于这种情况，不能使用 Claude API，需要另选模型供应商（届时需改造 `lib/ai/brief.ts`）。**这一点需要你确认公司股权结构**。
 - 不要通过代理或中转绕过地区限制。
+
+### 零预算方案对比（已选方向：B / 尽量免费）
+
+| 方案 | 费用 | 大陆访问 | 条款风险 |
+|---|---|---|---|
+| **B1. Netlify 免费版 + 自定义域名**（推荐） | 0 元 + 域名（阿里云新用户 .top/.xyz 首年约 1 元起） | 可用但偏慢，部分地区很慢 | 无：免费版**允许商业用途** |
+| B2. Vercel Hobby + 自定义域名（`cname-china.vercel-dns.com`） | 0 元 + 域名 | 较好（中国线路 CNAME，延迟约 80–150ms） | **有**：Hobby 仅限非商业个人用途，创业项目的原型属于商业用途，违反条款可能被停用。合规用法需 Pro（$20/月） |
+| B0. 不部署：本地运行 + 腾讯会议"远程控制" | 0 元 | 不涉及 | 无 |
+
+- **B1** 是"免费且合规"的最优解，代价是速度。访谈前 1 天让受访者先打开一次；若太慢，当场切到 B0 兜底。
+- **B0** 零成本、零风险：你在自己电脑上 `npm run dev`，共享屏幕并把控制权交给受访者。缺点是操作有延迟、体验不如亲手打开网页，会轻微影响任务一到三的观察。
+- AI 解读三种方案都用规则模板（`ANTHROPIC_API_KEY` 留空），不产生模型费用。
+
+### B1 操作步骤（Netlify）
+1. 用 GitHub 账号登录 [Netlify](https://app.netlify.com/)，"Add new site → Import an existing project"，选择 `Jeniffer214/subtrack-v2`，分支选 `main`。构建配置已写在 `netlify.toml`，无需修改。
+2. 在 Site configuration → Environment variables 添加 `DEMO_PASSWORD`（访问密码）。
+3. 部署完成后，在 Domain management 绑定你的域名（按 Netlify 提示在域名商处添加 CNAME）；HTTPS 证书自动签发。
+4. 按下文 3.3 的清单用手机 4G 实测。
+
+### B2 操作步骤（Vercel，仅在你接受条款风险或购买 Pro 时）
+1. 用 GitHub 登录 [Vercel](https://vercel.com/)，Import `Jeniffer214/subtrack-v2`，框架自动识别为 Next.js。
+2. Settings → Environment Variables 添加 `DEMO_PASSWORD`。
+3. Settings → Domains 绑定域名，在域名商处把 CNAME 指向 `cname-china.vercel-dns.com`。
+
+### 托管平台上的差异
+- 限流器保存在单个函数实例的内存里，平台可能同时运行多个实例，因此限额只是"尽力而为"。模板模式不调用付费模型，影响可以忽略。
+- `output: "standalone"` 在 Vercel/Netlify 上自动关闭，只用于 Docker 自托管。
 
 ## 2. 代码侧已完成的准备
 
@@ -78,3 +105,7 @@ docker compose -f deploy/docker-compose.yml --env-file deploy/.env up -d --build
 - Anthropic 支持地区：[官方列表](https://www.anthropic.com/supported-countries)、[API 支持地区文档](https://anthropic.mintlify.app/en/api/supported-regions)、[地区与股权政策整理](https://blog.eimoon.com/p/anthropic-supported-countries-regions-2026-04/)
 - 香港服务器免备案与腾讯云套餐：[腾讯云开发者社区对比](https://cloud.tencent.com/developer/article/2657269)、[腾讯云轻量服务器](https://cloud.tencent.com/product/lighthouse)
 - Next.js 16 `proxy.ts`：[官方文档](https://nextjs.org/docs/app/api-reference/file-conventions/proxy)
+- Vercel Hobby 非商业条款：[Hobby 计划](https://vercel.com/docs/plans/hobby)、[Fair Use Guidelines](https://vercel.com/docs/limits/fair-use-guidelines)
+- Netlify 免费版允许商业用途：[Netlify 官方论坛答复](https://answers.netlify.com/t/can-we-use-netlify-free-plan-for-commercial-purposes/41545/2)、[Next.js 16 支持](https://www.netlify.com/changelog/next-js-16-deploy-on-netlify/)
+- Netlify/Vercel 在大陆的速度：[如何提高 Netlify 在国内的访问速度](https://zhuanlan.zhihu.com/p/346395934)、[Vercel 中国线路 CNAME](https://blog.pid0.cn/posts/site-ops/vercel-cloudflare-china/)
+- 域名价格：[阿里云域名价格 2026](https://developer.aliyun.com/article/1709331)
