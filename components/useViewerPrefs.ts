@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { ASSET_CODES, type AssetCode } from "@/lib/types";
 
-const TZ_KEY = "mp.timezone";
-const WATCH_KEY = "mp.watchlist";
+const TZ_KEY = "pl.timezone";
+const WATCH_KEY = "pl.watchlist";
 
 function read(key: string): string | null {
   try {

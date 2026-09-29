@@ -1,4 +1,4 @@
-# MacroPulse 宏脉（占位名）
+# Printlens 澄数
 
 透明可验证的 AI 经济日历，对标 [GoMoon.ai](https://gomoon.ai/)。调研与决策清单见 [`docs/RESEARCH.md`](docs/RESEARCH.md)。
 

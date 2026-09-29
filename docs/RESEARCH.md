@@ -77,7 +77,7 @@
 
 | # | 决策点 | 选项 | 我的建议 |
 |---|---|---|---|
-| D1 | 产品名 | 当前占位名 "MacroPulse 宏脉" | 需先做商标检索再定 |
+| D1 | 产品名 | ✅ 已定：Printlens / 澄数（原占位名 MacroPulse 与 macropulse.com 等同赛道产品冲突，已弃用） | 注册前仍需查中国商标网第 9/36/42 类、USPTO/WIPO 及域名 |
 | D2 | 目标市场 | A 中文优先 / B 英文全球 / C 双语 | **A**：差异化最明显，竞争最弱（置信度：中，依据是竞品功能对比，缺用户访谈） |
 | D3 | 数据源 | Trading Economics / FMP / Finnhub / 自建抓取 | 先用 FMP 或 TE 入门档验证付费意愿，**不建议抓取** |
 | D4 | 平台 | Web / 移动 App / TradingView 插件 | Web 先行（PWA 推送），验证后再做 App |

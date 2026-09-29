@@ -30,7 +30,7 @@ export default async function CalendarPage({ searchParams }: { searchParams: Pro
   return (
     <main className="container">
       <header className="top">
-        <h1>MacroPulse 宏脉</h1>
+        <h1>Printlens 澄数</h1>
         <span className="tag">透明可验证的 AI 经济日历</span>
       </header>
       {provider.isDemo && (
