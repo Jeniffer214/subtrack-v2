@@ -82,7 +82,7 @@
 | D3 | 数据源 | Trading Economics / FMP / Finnhub / 自建抓取 | 先用 FMP 或 TE 入门档验证付费意愿，**不建议抓取** |
 | D4 | 平台 | Web / 移动 App / TradingView 插件 | Web 先行（PWA 推送），验证后再做 App |
 | D5 | 商业模式 | 免费+Pro 订阅 / 券商 B2B 白标 | 免费日历 + Pro（AI 解读、提醒、历史统计）；券商白标作为第二曲线 |
-| D6 | 下一步 | 用户访谈 10 人 / 直接接真实数据 | 先 10 人访谈验证 P7，再投入数据成本 |
+| D6 | 下一步 | 用户访谈 10 人 / 直接接真实数据 | 先 10 人访谈验证 P7，再投入数据成本（提纲见 [INTERVIEW_GUIDE.md](INTERVIEW_GUIDE.md)） |
 
 ## 来源
 - [GoMoon.ai 官网](https://gomoon.ai/) ｜ [Tracxn 公司档案](https://tracxn.com/d/companies/gomoon/__5a5r6q3oQxC8fDfEck63Mmx-DwcfRbPLy3Pa8KZ3v-A) ｜ [MOGE 介绍](https://moge.ai/product/gomoonai) ｜ [BestAITools 评测](https://www.bestaitools.com/tool/gomoon-ai/) ｜ [GoMoon 评测文章](https://gomoon.pages.dev/posts/gomoon/)

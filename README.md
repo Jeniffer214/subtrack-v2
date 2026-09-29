@@ -23,6 +23,10 @@ npm test                     # 单元测试
 npm run typecheck
 ```
 
+## 部署
+
+访谈用演示站点的部署方案（平台对比、密码门、Docker + Caddy）见 [`docs/DEPLOY.md`](docs/DEPLOY.md)。
+
 ## 结构
 
 | 路径 | 说明 |
